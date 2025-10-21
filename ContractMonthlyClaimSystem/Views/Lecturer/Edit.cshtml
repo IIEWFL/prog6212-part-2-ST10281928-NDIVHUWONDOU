@@ -1,0 +1,141 @@
+﻿@model ContractMonthlyClaimSystem.Models.Claim
+@{
+    ViewData["Title"] = "Edit Claim";
+}
+
+<div class="form-card soft-card p-4 p-md-5">
+    <form asp-action="Edit" method="post" enctype="multipart/form-data" novalidate>
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none" id="valSummary"></div>
+
+        <div class="form-grid">
+            <div class="form-fields">
+                <div class="mb-3">
+                    <label asp-for="LecturerName" class="form-label">Lecturer Name</label>
+                    <div class="input-icon">
+                        <i class="bi bi-person"></i>
+                        <input asp-for="LecturerName" class="form-control" placeholder="e.g. Dr. A. Smith" />
+                    </div>
+                    <span asp-validation-for="LecturerName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Module" class="form-label">Module</label>
+                    <div class="input-icon">
+                        <i class="bi bi-journals"></i>
+                        <input asp-for="Module" class="form-control" placeholder="e.g. PROG6212" />
+                    </div>
+                    <span asp-validation-for="Module" class="text-danger"></span>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="HoursWorked" class="form-label">Hours Worked</label>
+                        <div class="input-icon">
+                            <i class="bi bi-clock"></i>
+                            <input asp-for="HoursWorked" type="number" min="0" step="1"
+                                   class="form-control calc-hours" placeholder="e.g. 10" />
+                        </div>
+                        <span asp-validation-for="HoursWorked" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="HourlyRate" class="form-label">Hourly Rate</label>
+                        <div class="input-icon">
+                            <i class="bi bi-currency-dollar"></i>
+                            <input asp-for="HourlyRate" type="number" min="0" step="0.01"
+                                   class="form-control calc-rate" placeholder="e.g. 300" />
+                        </div>
+                        <span asp-validation-for="HourlyRate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Upload Document</label>
+                    <div class="dropzone" id="dropzone">
+                        <div class="dz-icon"><i class="bi bi-cloud-arrow-up"></i></div>
+                        <div class="dz-text">
+                            <div class="fw-semibold">Drag & drop file here</div>
+                            <div class="text-muted small">or click to browse</div>
+                        </div>
+                        <input asp-for="DocumentPath" type="file" class="dz-input" id="fileInput" />
+                    </div>
+                    <div class="small text-muted mt-1" id="fileName">No file chosen</div>
+                    <span asp-validation-for="DocumentPath" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex gap-2 mt-3">
+                    <button type="submit" class="btn btn-brand">
+                        <i class="bi bi-send">Save</i>
+                    </button>
+                    <button type="reset" class="btn btn-outline-brand" id="resetBtn">
+                        <i class="bi bi-arrow-counterclockwise"></i> Reset
+                    </button>
+                    <a asp-controller="Lecturer" asp-action="Index" class="btn btn-soft">
+                        <i class="bi bi-arrow-left"></i> Back to My Claims
+                    </a>
+                </div>
+            </div>
+
+            <aside class="form-aside soft-card p-3">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div class="fw-semibold">Submission Summary</div>
+                    <span class="badge-status badge-pending">Draft</span>
+                </div>
+                <div class="small text-muted">These values update as you type.</div>
+                <hr class="my-3" />
+                <div class="d-flex justify-content-between"><span>Hours</span><span id="sHours">0</span></div>
+                <div class="d-flex justify-content-between"><span>Rate</span><span id="sRate">0</span></div>
+                <div class="d-flex justify-content-between fw-semibold mt-2"><span>Estimated Total</span><span id="sTotal">0</span></div>
+                <hr class="my-3" />
+                <div class="small text-muted">Tip: Ensure the document shows the period and module.</div>
+            </aside>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        // show validation summary if there are errors
+        (function(){
+          const summary = document.getElementById('valSummary');
+          if (summary && summary.querySelector('ul')) summary.classList.remove('d-none');
+        })();
+
+        // live summary calc
+        (function(){
+          const hours = document.querySelector('.calc-hours');
+          const rate  = document.querySelector('.calc-rate');
+          const sH = document.getElementById('sHours');
+          const sR = document.getElementById('sRate');
+          const sT = document.getElementById('sTotal');
+          function fmt(n){ return isNaN(n) ? '0' : n.toString(); }
+          function calc(){
+            const h = parseFloat(hours?.value || '0');
+            const r = parseFloat(rate?.value  || '0');
+            sH.textContent = fmt(h);
+            sR.textContent = fmt(r);
+            sT.textContent = fmt((h*r).toFixed(2));
+          }
+          hours?.addEventListener('input', calc);
+          rate?.addEventListener('input', calc);
+          calc();
+        })();
+
+        // dropzone + filename
+        (function(){
+          const dz = document.getElementById('dropzone');
+          const input = document.getElementById('fileInput');
+          const nameEl = document.getElementById('fileName');
+          const setName = f => nameEl.textContent = f ? f.name : 'No file chosen';
+
+          input?.addEventListener('change', () => setName(input.files?.[0]));
+          dz?.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('border-primary'); });
+          dz?.addEventListener('dragleave', () => dz.classList.remove('border-primary'));
+          dz?.addEventListener('drop', e => {
+            e.preventDefault(); dz.classList.remove('border-primary');
+            if (e.dataTransfer.files?.length){ input.files = e.dataTransfer.files; setName(input.files[0]); }
+          });
+          document.getElementById('resetBtn')?.addEventListener('click', ()=> setTimeout(()=> setName(null),0));
+        })();
+    </script>
+}
