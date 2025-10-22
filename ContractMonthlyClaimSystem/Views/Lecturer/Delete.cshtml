@@ -1,29 +1,57 @@
-﻿@model ContractMonthlyClaimSystem.Models.Claim;
+﻿@model ContractMonthlyClaimSystem.Models.Claim
+@{
+    ViewData["Title"] = "Delete Claim";
+}
 
+<div class="form-card soft-card p-4 p-md-5">
+    <h2 class="fw-semibold mb-4 text-danger">
+        <i class="bi bi-trash"></i> Confirm Delete
+    </h2>
 
-<h2>Details</h2>
-<p>
-    <b>Lecturer: </b>
-    @Model.LecturerName
-</p>
-<p>
-    <b>Module: </b>
-    @Model.Module
-</p>
-<p>
-    <b>Hours: </b>
-    @Model.HoursWorked
-</p>
-<p>
-    <b>Rate: </b>
-    @Model.HourlyRate
-</p>
-<p>
-    <b>Status: </b>
-    @Model.Status
-</p>
-<form asp-action="Delete">
-    <input type="hidden" asp-for="Id" />
-    <input type="submit" value="Delete" class="btn btn-danger" /> |
-    <a asp-action="Index">Back to List</a>
-</form>
+    <div class="alert alert-warning">
+        <i class="bi bi-exclamation-triangle"></i>
+        Are you sure you want to delete this claim? This action cannot be undone.
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div><strong>Lecturer:</strong> @Model.LecturerName</div>
+            <div><strong>Module:</strong> @Model.Module</div>
+            <div><strong>Hours Worked:</strong> @Model.HoursWorked</div>
+            <div><strong>Hourly Rate:</strong> R @Model.HourlyRate</div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <strong>Status:</strong>
+                <span class="badge-status @(Model.Status?.ToLower() == "approved" ? "badge-approved" : Model.Status?.ToLower() == "rejected" ? "badge-rejected" : "badge-pending")">
+                    @Model.Status
+                </span>
+            </div>
+            @if (!string.IsNullOrWhiteSpace(Model.reasonCoord) || !string.IsNullOrWhiteSpace(Model.reasonManager))
+            {
+                <div class="mt-2 text-muted small">
+                    @if (!string.IsNullOrWhiteSpace(Model.reasonCoord))
+                    {
+                        <div><strong>Coordinator:</strong> @Model.reasonCoord</div>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Model.reasonManager))
+                    {
+                        <div><strong>Manager:</strong> @Model.reasonManager</div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Confirm Delete
+            </button>
+            <a asp-action="Index" class="btn btn-soft">
+                <i class="bi bi-arrow-left"></i> Cancel
+            </a>
+        </div>
+    </form>
+</div>

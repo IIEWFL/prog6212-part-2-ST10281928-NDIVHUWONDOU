@@ -1,24 +1,137 @@
-﻿@model ContractMonthlyClaimSystem.Models.Claim;
+﻿@model ContractMonthlyClaimSystem.Models.Claim
+@{
+    ViewData["Title"] = "Claim Details";
+}
 
+<div class="form-card soft-card p-4 p-md-5">
+    <h2 class="fw-semibold mb-4">
+        <i class="bi bi-file-earmark-text"></i> Claim Details
+    </h2>
 
-<h2>Details</h2>
-<p>
-    <b>Lecturer: </b>
-    @Model.LecturerName
-</p>
-<p>
-    <b>Module: </b>
-    @Model.Module
-</p>
-<p>
-    <b>Hours: </b>
-    @Model.HoursWorked
-</p>
-<p>
-    <b>Rate: </b>
-    @Model.HourlyRate
-</p>
-<p>
-    <b>Status: </b>
-    @Model.Status
-</p>
+    <div class="row g-4">
+        <!-- Left column -->
+        <div class="col-md-6">
+            <div class="detail-item">
+                <label class="detail-label">Lecturer Name</label>
+                <div class="detail-value">@Model.LecturerName</div>
+            </div>
+
+            <div class="detail-item">
+                <label class="detail-label">Module</label>
+                <div class="detail-value">@Model.Module</div>
+            </div>
+
+            <div class="detail-item">
+                <label class="detail-label">Hours Worked</label>
+                <div class="detail-value">@Model.HoursWorked</div>
+            </div>
+
+            <div class="detail-item">
+                <label class="detail-label">Hourly Rate</label>
+                <div class="detail-value">R @Model.HourlyRate</div>
+            </div>
+        </div>
+
+        <!-- Right column -->
+        <div class="col-md-6">
+            <div class="detail-item">
+                <label class="detail-label">Status</label>
+                <div class="detail-value">
+                    <span class="badge-status @(Model.Status?.ToLower() == "approved" ? "badge-approved" : Model.Status?.ToLower() == "rejected" ? "badge-rejected" : "badge-pending")">
+                        @Model.Status
+                    </span>
+                </div>
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(Model.reasonCoord) || !string.IsNullOrWhiteSpace(Model.reasonManager))
+            {
+                <div class="detail-item">
+                    <label class="detail-label">Reason(s)</label>
+                    <div class="bg-light border rounded p-3 small text-muted">
+                        @if (!string.IsNullOrWhiteSpace(Model.reasonCoord))
+                        {
+                            <div><strong>Coordinator:</strong> @Model.reasonCoord</div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.reasonManager))
+                        {
+                            <div><strong>Manager:</strong> @Model.reasonManager</div>
+                        }
+                    </div>
+                </div>
+            }
+
+            <div class="detail-item">
+                <label class="detail-label">Document</label>
+                <div class="detail-value">
+                    @if (!string.IsNullOrWhiteSpace(Model.DocumentPath))
+                    {
+                        <a href="@Url.Content(Model.DocumentPath)" class="btn btn-outline-brand btn-sm">
+                            <i class="bi bi-file-earmark-arrow-down"></i> View File
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">No file submitted</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4" />
+
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-brand">
+            <i class="bi bi-pencil"></i> Edit Claim
+        </a>
+        <a asp-action="Index" class="btn btn-soft">
+            <i class="bi bi-arrow-left"></i> Back to My Claims
+        </a>
+    </div>
+</div>
+
+<!-- Inline style improvements -->
+<style>
+    .detail-item {
+        margin-bottom: 1.25rem;
+    }
+
+    .detail-label {
+        display: block;
+        font-size: 0.85rem;
+        color: #6c757d;
+        margin-bottom: 0.35rem;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+
+    .detail-value {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #212529;
+        word-break: break-word;
+    }
+
+    .badge-status {
+        padding: 0.4rem 0.8rem;
+        border-radius: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: capitalize;
+    }
+
+    .badge-approved {
+        background-color: #d1e7dd;
+        color: #0f5132;
+    }
+
+    .badge-rejected {
+        background-color: #f8d7da;
+        color: #842029;
+    }
+
+    .badge-pending {
+        background-color: #fff3cd;
+        color: #664d03;
+    }
+</style>
