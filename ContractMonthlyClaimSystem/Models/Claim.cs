@@ -11,8 +11,8 @@ namespace ContractMonthlyClaimSystem.Models
         public int HoursWorked { get; set; }
         public double HourlyRate { get; set; }
         public string Status { get; set; } = "Pending";
-        public string? statusCoord { get; set; }
-        public string? statusManager { get; set; }
+        public string? statusCoord { get; set; } = "Pending";
+        public string? statusManager { get; set; } = "Pending";
 
         [Display (Name = "Submitted Document")]
         public string? DocumentPath { get; set; }

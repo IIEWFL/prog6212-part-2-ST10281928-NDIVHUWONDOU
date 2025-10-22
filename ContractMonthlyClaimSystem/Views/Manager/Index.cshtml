@@ -88,6 +88,8 @@
                 <th class="text-end">Hours</th>
                 <th class="text-end">Rate</th>
                 <th>Status</th>
+                <th>Co-ord Status</th>
+                <th>Manager Status</th>
                 <th>Document</th>
                 <th>Action</th>
             </tr>
@@ -101,6 +103,8 @@
                     <td class="text-end">@item.HoursWorked</td>
                     <td class="text-end">@item.HourlyRate</td>
                     <td><span class="badge-status @(StatusClass(item.Status))">@item.Status</span></td>
+                    <td><span class="badge-status @(StatusClass(item.statusCoord))">@item.statusCoord</span></td>
+                    <td><span class="badge-status @(StatusClass(item.statusManager))">@item.statusManager</span></td>
                     <td>
                         @if (!string.IsNullOrWhiteSpace(item.DocumentPath))
                         {

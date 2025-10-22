@@ -40,7 +40,7 @@ namespace ContractMonthlyClaimSystem.Controllers
             var claim = _context.Claims.FirstOrDefault(c => c.Id == id);
             if (claim == null) return NotFound();
 
-            claim.Status = status;
+            claim.statusCoord = status;
             _context.SaveChanges();
 
             return RedirectToAction("Index");
