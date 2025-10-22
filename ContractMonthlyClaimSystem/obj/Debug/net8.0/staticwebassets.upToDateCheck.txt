@@ -58,8 +58,10 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
-wwwroot\uploads\ICETASK1.pdf
 wwwroot\uploads\icetask3 (1).pdf
 wwwroot\uploads\ICETASK3.pdf
 wwwroot\uploads\ICETASK4.pdf
 wwwroot\uploads\network diagram final phase.png
+wwwroot\uploads\ICETASK1.pdf
+wwwroot\uploads\Q3.1.pdf
+wwwroot\uploads\INSY7213_Practical Assigment 2.docx

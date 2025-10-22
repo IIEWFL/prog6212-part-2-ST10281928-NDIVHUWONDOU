@@ -23,7 +23,7 @@ namespace ContractMonthlyClaimSystem.Test.Controllers
         [TestInitialize]
         public void Setup()
         {
-            // 👇 Each test uses its own unique in-memory DB
+            // Each test uses its own unique in-memory DB
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: System.Guid.NewGuid().ToString())
                 .Options;
@@ -44,7 +44,7 @@ namespace ContractMonthlyClaimSystem.Test.Controllers
             _context.Dispose();
         }
 
-        // 🧪 INDEX TEST
+        //INDEX TEST
         [TestMethod]
         public void Index_ReturnsViewWithClaims()
         {
@@ -62,7 +62,7 @@ namespace ContractMonthlyClaimSystem.Test.Controllers
             Assert.AreEqual("Dr. Smith", model.First().LecturerName);
         }
 
-        // 🧪 DETAILS TESTS
+        // DETAILS TESTS
         [TestMethod]
         public void Details_ReturnsNotFound_WhenClaimNotExists()
         {
@@ -83,7 +83,7 @@ namespace ContractMonthlyClaimSystem.Test.Controllers
             Assert.AreEqual("Prof. John", model.LecturerName);
         }
 
-        // 🧪 CREATE TEST
+        //CREATE TEST
         [TestMethod]
         public async Task Create_AddsClaimAndRedirects()
         {
@@ -101,7 +101,7 @@ namespace ContractMonthlyClaimSystem.Test.Controllers
             Assert.AreEqual("Dr. Lee", _context.Claims.First().LecturerName);
         }
 
-        // 🧪 EDIT TEST
+        //EDIT TEST
         [TestMethod]
         public async Task Edit_UpdatesClaimAndRedirects()
         {
