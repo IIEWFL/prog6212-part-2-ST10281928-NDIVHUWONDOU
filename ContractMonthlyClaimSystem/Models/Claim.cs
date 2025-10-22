@@ -13,6 +13,9 @@ namespace ContractMonthlyClaimSystem.Models
         public string Status { get; set; } = "Pending";
         public string? statusCoord { get; set; } = "Pending";
         public string? statusManager { get; set; } = "Pending";
+        public string? reason { get; set; }
+        public string? reasonCoord { get; set; }
+        public string? reasonManager { get; set; }
 
         [Display (Name = "Submitted Document")]
         public string? DocumentPath { get; set; }

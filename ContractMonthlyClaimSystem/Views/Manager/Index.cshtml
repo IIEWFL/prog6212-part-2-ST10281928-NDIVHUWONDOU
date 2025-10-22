@@ -102,7 +102,14 @@
                     <td>@item.Module</td>
                     <td class="text-end">@item.HoursWorked</td>
                     <td class="text-end">@item.HourlyRate</td>
-                    <td><span class="badge-status @(StatusClass(item.Status))">@item.Status</span></td>
+                    <td><span class="badge-status @(StatusClass(item.Status))">@item.Status</span>
+                        @if (!string.IsNullOrWhiteSpace(item.reasonCoord) || !string.IsNullOrWhiteSpace(item.reasonManager))
+                        {
+                            <div class="text-muted small">
+                                @item.reasonCoord @item.reasonManager
+                            </div>
+                        }
+                    </td>
                     <td><span class="badge-status @(StatusClass(item.statusCoord))">@item.statusCoord</span></td>
                     <td><span class="badge-status @(StatusClass(item.statusManager))">@item.statusManager</span></td>
                     <td>
@@ -117,10 +124,12 @@
                         }
                     </td>
                     <td>
-                        <form asp-action="UpdateStatus" asp-route-id="@item.Id" method="post">
+                        <form asp-action="UpdateStatus" asp-route-id="@item.Id" method="post" onsubmit="return confirmReject(this);">
                             <input type="hidden" name="status" value="Rejected" />
+                            <input type="hidden" name="reason" />
                             <button type="submit" class="btn btn-danger">Reject</button>
                         </form>
+
 
                         <form asp-action="UpdateStatus" asp-route-id="@item.Id" method="post" class="mt-2">
                             <input type="hidden" name="status" value="Approved" />
@@ -172,6 +181,13 @@
           }));
           search.addEventListener("input", apply);
         })();
+
+                function confirmReject(form) {
+            const reason = prompt("Please provide a reason for rejection:");
+            if (reason === null) return false; // cancel
+            form.querySelector('input[name="reason"]').value = reason;
+            return true;
+        }
     </script>
 }
 

@@ -57,7 +57,7 @@
                             <div class="fw-semibold">Drag & drop file here</div>
                             <div class="text-muted small">or click to browse</div>
                         </div>
-                        <input asp-for="DocumentPath" type="file" class="dz-input" id="fileInput" />
+                        <input asp-for="DocumentPath" name="file" type="file" class="dz-input" id="fileInput" />
                     </div>
                     <div class="small text-muted mt-1" id="fileName">No file chosen</div>
                     <span asp-validation-for="DocumentPath" class="text-danger"></span>

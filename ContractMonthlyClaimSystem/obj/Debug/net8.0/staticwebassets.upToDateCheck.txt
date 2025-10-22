@@ -58,6 +58,7 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\uploads\ICETASK1.pdf
 wwwroot\uploads\icetask3 (1).pdf
 wwwroot\uploads\ICETASK3.pdf
 wwwroot\uploads\ICETASK4.pdf

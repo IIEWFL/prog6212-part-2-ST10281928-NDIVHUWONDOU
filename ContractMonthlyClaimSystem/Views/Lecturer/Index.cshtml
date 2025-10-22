@@ -99,6 +99,13 @@
                     <td class="text-end">@item.HourlyRate</td>
                     <td>
                         <span class="badge-status @(StatusClass(item.Status))">@item.Status</span>
+                        @if (!string.IsNullOrWhiteSpace(item.reasonCoord) || !string.IsNullOrWhiteSpace(item.reasonManager))
+                        {
+                            <div class="text-muted small">
+                                @item.reasonCoord 
+                                <br />@item.reasonManager
+                            </div>
+                        }
                     </td>
 
                     <td>

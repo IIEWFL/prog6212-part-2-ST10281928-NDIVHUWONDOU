@@ -3,6 +3,7 @@ using ContractMonthlyClaimSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContractMonthlyClaimSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251022162635_RejectionReason")]
+    partial class RejectionReason
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,12 +54,6 @@ namespace ContractMonthlyClaimSystem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("reason")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("reasonCoord")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("reasonManager")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("statusCoord")
