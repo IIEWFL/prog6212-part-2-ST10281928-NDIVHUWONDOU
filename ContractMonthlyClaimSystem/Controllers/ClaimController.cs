@@ -1,5 +1,6 @@
 ﻿using ContractMonthlyClaimSystem.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ContractMonthlyClaimSystem.Controllers
 {
@@ -41,6 +42,18 @@ namespace ContractMonthlyClaimSystem.Controllers
             if (claim == null) return NotFound();
 
             claim.statusCoord = status;
+            if (claim.statusCoord == "Approved" && claim.statusManager == "Approved")
+            {
+                claim.Status = "Approved";
+            }
+            else if (claim.statusCoord.IsNullOrEmpty() || claim.statusManager.IsNullOrEmpty() || claim.statusManager == "Pending")
+            {
+                claim.Status = "Pending";
+            }
+            else
+            {
+                claim.Status = "Rejected";
+            }
             _context.SaveChanges();
 
             return RedirectToAction("Index");
