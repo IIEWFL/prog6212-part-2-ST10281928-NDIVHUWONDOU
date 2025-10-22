@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "r8cM6Q55i+4=",
+  "dgSpecHash": "xgwCC9R4WVE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\ndoum\\BCAD2_2ndSemester\\Prog2B\\prog6212-part-1-ST10281928-NDIVHUWONDOU\\ContractMonthlyClaimSystem\\ContractMonthlyClaimSystem.csproj",
+  "projectFilePath": "C:\\Users\\ndoum\\BCAD2_2ndSemester\\Prog2B\\prog6212-part-2-ST10281928-NDIVHUWONDOU\\ContractMonthlyClaimSystem\\ContractMonthlyClaimSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ndoum\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\ndoum\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

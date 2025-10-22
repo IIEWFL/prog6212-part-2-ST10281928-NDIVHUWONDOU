@@ -1,0 +1,51 @@
+﻿using ContractMonthlyClaimSystem.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace ContractMonthlyClaimSystem.Controllers
+{
+    public class ManagerController : Controller
+    {
+        private readonly ApplicationDbContext _context;
+        public ManagerController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public IActionResult Index()
+        {
+            var claims = _context.Claims.ToList();
+            return View(claims);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var claim = _context.Claims.FirstOrDefault(c => c.Id == id);
+            if (claim == null) return NotFound();
+            return View(claim);
+        }
+
+        [HttpGet]
+        public IActionResult Create() => View();
+
+        [HttpPost]
+        public IActionResult Create(Claim claim)
+        {
+            _context.Claims.Add(claim);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult UpdateStatus(int id, string status)
+        {
+            var claim = _context.Claims.FirstOrDefault(c => c.Id == id);
+            if (claim == null) return NotFound();
+
+            claim.Status = status;
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+    }
+}
