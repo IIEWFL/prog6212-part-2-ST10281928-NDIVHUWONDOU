@@ -396,29 +396,29 @@ namespace ContractMonthlyClaimSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        public IActionResult CheckStatus(int id, string status)
-        {
-            var claim = _context.Claims.FirstOrDefault(c => c.Id == id);
-            if (claim == null) return NotFound();
+        //[HttpPost]
+        //public IActionResult CheckStatus(int id, string status)
+        //{
+        //    var claim = _context.Claims.FirstOrDefault(c => c.Id == id);
+        //    if (claim == null) return NotFound();
 
-            if(claim.statusCoord == "Approved" && claim.statusManager == "Approved")
-            {
-                claim.Status = "Approved";
-            }
-            else if(claim.statusCoord.IsNullOrEmpty() || claim.statusManager.IsNullOrEmpty() || claim.statusManager == "Pending")
-            {
-                claim.Status = "Pending";
-            }
-            else
-            {
-                claim.Status = "Rejected";
-            }
+        //    if(claim.statusCoord == "Approved" && claim.statusManager == "Approved")
+        //    {
+        //        claim.Status = "Approved";
+        //    }
+        //    else if(claim.statusCoord.IsNullOrEmpty() || claim.statusManager.IsNullOrEmpty() || claim.statusManager == "Pending")
+        //    {
+        //        claim.Status = "Pending";
+        //    }
+        //    else
+        //    {
+        //        claim.Status = "Rejected";
+        //    }
 
-                _context.SaveChanges();
+        //        _context.SaveChanges();
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
     }
 }
 
