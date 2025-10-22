@@ -105,10 +105,20 @@
                     <td><span class="badge-status @(StatusClass(item.Status))">@item.Status</span>
                         @if (!string.IsNullOrWhiteSpace(item.reasonCoord) || !string.IsNullOrWhiteSpace(item.reasonManager))
                         {
-                            <div class="text-muted small">
-                                @item.reasonCoord @item.reasonManager
+                            <div class="text-secondary small fst-italic mt-1">
+                                @if (!string.IsNullOrWhiteSpace(item.reasonCoord))
+                                {
+                                    <span><b>Coordinator:</b> @item.reasonCoord</span>
+                        
+                                    <br />
+                                }
+                                @if (!string.IsNullOrWhiteSpace(item.reasonManager))
+                                {
+                                    <span><b>Manager:</b> @item.reasonManager</span>
+                                }
                             </div>
                         }
+
                     </td>
                     <td><span class="badge-status @(StatusClass(item.statusCoord))">@item.statusCoord</span></td>
                     <td><span class="badge-status @(StatusClass(item.statusManager))">@item.statusManager</span></td>
